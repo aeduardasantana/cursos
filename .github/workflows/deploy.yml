@@ -1,0 +1,64 @@
+name: Publicar GEB Cursos na Locaweb
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "404.html"
+      - "assets/**"
+      - "vocabulario-estrategico/**"
+      - "nr-1/**"
+      - "aulas/**"
+      - "ferramentas/**"
+      - "glossario/**"
+      - "acessibilidade/**"
+      - "robots.txt"
+      - "sitemap.xml"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar a estrutura e JavaScript
+        run: |
+          test -s index.html
+          test -s assets/styles.css
+          test -s assets/app.js
+          test -s assets/glossario.json
+          test -s nr-1/index.html
+          test -s vocabulario-estrategico/index.html
+          test -s aulas/markup/index.html
+          test -s ferramentas/markup/index.html
+          test -s glossario/index.html
+          node --check assets/app.js
+          python3 -m json.tool assets/glossario.json >/dev/null
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          termos=json.loads(Path("assets/glossario.json").read_text(encoding="utf-8"))
+          assert len(termos)==90, f"Esperados 90 termos, encontrados {len(termos)}"
+          for nome in ("index.html","nr-1/index.html","vocabulario-estrategico/index.html","aulas/markup/index.html","glossario/index.html"):
+              conteudo=Path(nome).read_text(encoding="utf-8")
+              assert 'lang="pt-BR"' in conteudo, f"{nome} sem idioma"
+              assert "vlibras.gov.br/app/vlibras-plugin.js" in conteudo, f"{nome} sem VLibras"
+          print("Validação estrutural concluída.")
+          PY
+
+      - name: Publicar somente a pasta de Cursos
+        uses: locaweb/ftp-deploy@1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          localDir: "./"
+          remoteDir: "./public_html/cursos/"
+          options: "--exclude-glob .git/** --exclude-glob .github/** --exclude-glob README.md --exclude-glob CNAME"
