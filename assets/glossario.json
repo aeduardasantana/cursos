@@ -1,0 +1,632 @@
+[
+  [
+    "Estratégia",
+    "Core business",
+    "Atividade central que concentra a proposta econômica do negócio.",
+    "Estruturação,Operação",
+    "Qual atividade gera a principal entrega de valor do GEB?"
+  ],
+  [
+    "Estratégia",
+    "Modelo de negócio",
+    "Lógica pela qual a organização cria, entrega e captura valor.",
+    "Estruturação,Validação",
+    "Quem paga, por quê, quanto e por qual entrega?"
+  ],
+  [
+    "Estratégia",
+    "Proposta de valor",
+    "Benefício relevante oferecido a um público definido.",
+    "Estruturação,Validação",
+    "Que problema real cada solução resolve?"
+  ],
+  [
+    "Estratégia",
+    "Público-alvo",
+    "Grupo de pessoas ou organizações a que se dirige a oferta.",
+    "Estruturação,Crescimento",
+    "O comprador é empresa, instituição ou pessoa física?"
+  ],
+  [
+    "Estratégia",
+    "Persona",
+    "Representação fundamentada do perfil de um cliente típico.",
+    "Validação,Crescimento",
+    "Quais objeções e necessidades surgem na decisão de compra?"
+  ],
+  [
+    "Estratégia",
+    "SWOT / FOFA",
+    "Análise de forças, fraquezas, oportunidades e ameaças.",
+    "Estruturação,Reestruturação",
+    "Que condições internas e externas afetam a expansão?"
+  ],
+  [
+    "Estratégia",
+    "OKR",
+    "Sistema de objetivos e resultados-chave verificáveis.",
+    "Operação,Crescimento",
+    "Qual resultado mensurável demonstra avanço da prioridade?"
+  ],
+  [
+    "Estratégia",
+    "KPI",
+    "Indicador-chave de desempenho ligado a um objetivo.",
+    "Operação,Crescimento",
+    "Qual medida evidencia se a meta está sendo cumprida?"
+  ],
+  [
+    "Estratégia",
+    "Benchmarking",
+    "Comparação sistemática de práticas e resultados para aprendizagem.",
+    "Validação,Crescimento",
+    "Quais processos de referência merecem adaptação?"
+  ],
+  [
+    "Estratégia",
+    "Governança corporativa",
+    "Estruturas e práticas de direção, prestação de contas e supervisão.",
+    "Operação,Expansão",
+    "Quem decide, executa, registra e fiscaliza?"
+  ],
+  [
+    "Estratégia",
+    "Stakeholder",
+    "Pessoa ou entidade afetada pelo negócio ou capaz de afetá-lo.",
+    "Estruturação,Expansão",
+    "Quem precisa ser considerado em uma decisão?"
+  ],
+  [
+    "Estratégia",
+    "Roadmap estratégico",
+    "Sequência orientadora de iniciativas e marcos.",
+    "Estruturação,Crescimento",
+    "O que vem primeiro e de que depende?"
+  ],
+  [
+    "Finanças",
+    "Receita bruta",
+    "Valor das vendas e serviços antes das deduções incidentes.",
+    "Operação",
+    "Quanto foi vendido no período?"
+  ],
+  [
+    "Finanças",
+    "Receita líquida",
+    "Receita após deduções de vendas aplicáveis; não é necessariamente caixa recebido.",
+    "Operação",
+    "Quanto permanece da receita após deduções?"
+  ],
+  [
+    "Finanças",
+    "Lucro bruto",
+    "Receita líquida menos custos dos bens ou serviços vendidos.",
+    "Operação",
+    "O que resta antes das demais despesas?"
+  ],
+  [
+    "Finanças",
+    "Lucro líquido",
+    "Resultado após os custos, despesas, tributos e demais efeitos reconhecidos.",
+    "Operação",
+    "A operação fechou o período com lucro?"
+  ],
+  [
+    "Finanças",
+    "DRE",
+    "Demonstração do resultado de receitas, custos e despesas por competência.",
+    "Operação",
+    "Qual foi o resultado econômico do mês?"
+  ],
+  [
+    "Finanças",
+    "Balanço patrimonial",
+    "Posição de ativos, passivos e patrimônio líquido em uma data.",
+    "Operação,Expansão",
+    "Qual a estrutura patrimonial da organização?"
+  ],
+  [
+    "Finanças",
+    "Fluxo de caixa",
+    "Movimentação e projeção de entradas e saídas de recursos.",
+    "Operação",
+    "Há recursos para pagar compromissos nas datas?"
+  ],
+  [
+    "Finanças",
+    "Capital de giro",
+    "Recursos empregados para sustentar o ciclo operacional.",
+    "Operação,Crescimento",
+    "Como financiar prazos entre pagar e receber?"
+  ],
+  [
+    "Finanças",
+    "EBITDA",
+    "Resultado antes de juros, tributos sobre lucro, depreciação e amortização, conforme reconciliação adotada.",
+    "Operação,Expansão",
+    "Como avaliar o desempenho operacional sem confundi-lo com caixa?"
+  ],
+  [
+    "Finanças",
+    "Burn rate",
+    "Ritmo de consumo líquido ou bruto de caixa, conforme a métrica definida.",
+    "Validação,Crescimento",
+    "Quanto caixa é consumido por mês?"
+  ],
+  [
+    "Finanças",
+    "Runway",
+    "Tempo estimado até o esgotamento do caixa sob uma taxa de consumo definida.",
+    "Validação,Crescimento",
+    "Quantos meses de operação o caixa sustenta?"
+  ],
+  [
+    "Finanças",
+    "Orçamento",
+    "Plano financeiro de receitas, custos, despesas e investimentos.",
+    "Estruturação,Operação",
+    "Qual limite orçamentário tem cada frente?"
+  ],
+  [
+    "Finanças",
+    "Forecast",
+    "Projeção revisável dos resultados esperados.",
+    "Operação,Crescimento",
+    "Como a previsão mudou após os dados do mês?"
+  ],
+  [
+    "Finanças",
+    "Desvio orçamentário",
+    "Diferença entre o valor realizado e o planejado.",
+    "Operação",
+    "Onde os gastos ou receitas divergiram?"
+  ],
+  [
+    "Precificação",
+    "Markup",
+    "Multiplicador aplicado ao custo-base para formar preço; depende dos percentuais e da base adotados.",
+    "Estruturação,Operação",
+    "Qual preço cobre custo, encargos e margem-alvo?"
+  ],
+  [
+    "Precificação",
+    "Margem de contribuição",
+    "Receita de venda menos custos e despesas variáveis associados.",
+    "Operação",
+    "Quanto uma venda contribui para cobrir fixos e resultado?"
+  ],
+  [
+    "Precificação",
+    "Margem bruta",
+    "Lucro bruto dividido pela receita líquida, em percentual.",
+    "Operação",
+    "Qual proporção sobra após os custos de venda?"
+  ],
+  [
+    "Precificação",
+    "Margem líquida",
+    "Lucro líquido dividido pela receita líquida, em percentual.",
+    "Operação",
+    "Qual percentual vira resultado líquido?"
+  ],
+  [
+    "Precificação",
+    "Ponto de equilíbrio (break-even)",
+    "Volume ou receita em que o resultado operacional considerado é zero.",
+    "Estruturação,Operação",
+    "Quantas vendas são necessárias para cobrir os custos fixos?"
+  ],
+  [
+    "Precificação",
+    "Custo fixo",
+    "Gasto cujo total não varia diretamente com o volume no intervalo analisado.",
+    "Estruturação,Operação",
+    "Quais gastos persistem sem novas vendas?"
+  ],
+  [
+    "Precificação",
+    "Custo variável",
+    "Gasto que se altera com o volume de produto ou serviço prestado.",
+    "Estruturação,Operação",
+    "Qual gasto surge a cada nova entrega?"
+  ],
+  [
+    "Precificação",
+    "Custo direto",
+    "Custo atribuível diretamente a um produto ou serviço.",
+    "Estruturação,Operação",
+    "Quanto custa entregar esta solução?"
+  ],
+  [
+    "Precificação",
+    "Custo indireto",
+    "Custo compartilhado que exige critério de alocação.",
+    "Operação",
+    "Como distribuir estrutura sem distorcer os preços?"
+  ],
+  [
+    "Precificação",
+    "CMV",
+    "Custo das mercadorias efetivamente vendidas no período.",
+    "Operação",
+    "Quanto custou o estoque comercializado?"
+  ],
+  [
+    "Precificação",
+    "CPV / CSP",
+    "Custo dos produtos vendidos / custos dos serviços prestados.",
+    "Operação",
+    "Qual custo corresponde às entregas efetivas?"
+  ],
+  [
+    "Precificação",
+    "Ticket médio",
+    "Receita de vendas dividida pelo número de pedidos ou transações no período; especificar a base.",
+    "Operação,Crescimento",
+    "Quanto rende cada venda realizada?"
+  ],
+  [
+    "Comercial",
+    "Lead",
+    "Contato que demonstrou interesse ou foi identificado como potencial cliente.",
+    "Validação,Crescimento",
+    "Qual oportunidade deve ser qualificada?"
+  ],
+  [
+    "Comercial",
+    "Prospect",
+    "Potencial cliente identificado e compatível com a oferta.",
+    "Validação,Crescimento",
+    "Há aderência ao público e necessidade?"
+  ],
+  [
+    "Comercial",
+    "MQL",
+    "Lead qualificado segundo critérios de marketing.",
+    "Crescimento",
+    "Quais contatos merecem avanço comercial?"
+  ],
+  [
+    "Comercial",
+    "SQL",
+    "Lead aceito como qualificado para atuação comercial.",
+    "Crescimento",
+    "Qual contato está pronto para abordagem de vendas?"
+  ],
+  [
+    "Comercial",
+    "Pipeline",
+    "Conjunto de oportunidades distribuídas por etapas comerciais.",
+    "Operação,Crescimento",
+    "Quantas propostas estão em negociação?"
+  ],
+  [
+    "Comercial",
+    "Funil de vendas",
+    "Representação das conversões ao longo da jornada comercial.",
+    "Operação,Crescimento",
+    "Em que etapa perdemos oportunidades?"
+  ],
+  [
+    "Comercial",
+    "Taxa de conversão",
+    "Percentual de unidades que passam de uma condição ou etapa a outra.",
+    "Operação,Crescimento",
+    "Qual parcela dos contatos virou contrato?"
+  ],
+  [
+    "Comercial",
+    "CRM",
+    "Práticas e sistemas de gestão do relacionamento com clientes.",
+    "Operação,Crescimento",
+    "Onde estão contatos, interações e próximos passos?"
+  ],
+  [
+    "Comercial",
+    "Churn",
+    "Proporção de clientes ou receita recorrente perdida em um período.",
+    "Operação,Crescimento",
+    "Quantos assinantes ou contratos foram perdidos?"
+  ],
+  [
+    "Comercial",
+    "Upsell",
+    "Venda de versão ou plano de maior valor ao cliente.",
+    "Crescimento",
+    "Há ampliação adequada da solução contratada?"
+  ],
+  [
+    "Comercial",
+    "Cross-sell",
+    "Oferta de solução complementar ao cliente existente.",
+    "Crescimento",
+    "Que outra frente realmente atende à necessidade?"
+  ],
+  [
+    "Marketing",
+    "CAC",
+    "Custo de aquisição de clientes, com custos e novos clientes definidos no período.",
+    "Crescimento",
+    "Quanto se investiu para conquistar um cliente?"
+  ],
+  [
+    "Marketing",
+    "LTV",
+    "Valor econômico estimado gerado por cliente durante o relacionamento, conforme a metodologia.",
+    "Crescimento",
+    "Quanto um cliente contribui ao longo do contrato?"
+  ],
+  [
+    "Marketing",
+    "ROI",
+    "Retorno sobre investimento: ganho líquido relativo ao investimento, com escopo definido.",
+    "Operação,Crescimento",
+    "O investimento produziu retorno proporcional?"
+  ],
+  [
+    "Marketing",
+    "ROAS",
+    "Receita atribuída à publicidade dividida pelo gasto publicitário.",
+    "Crescimento",
+    "Quanto de receita foi atribuída aos anúncios?"
+  ],
+  [
+    "Marketing",
+    "CTR",
+    "Proporção de cliques sobre impressões.",
+    "Crescimento",
+    "O conteúdo estimulou interesse em clicar?"
+  ],
+  [
+    "Marketing",
+    "CPL",
+    "Custo por lead captado.",
+    "Crescimento",
+    "Qual o gasto por contato obtido?"
+  ],
+  [
+    "Marketing",
+    "Posicionamento",
+    "Lugar distintivo que a marca busca ocupar na percepção do público.",
+    "Estruturação,Crescimento",
+    "Pelo que o GEB deseja ser reconhecido?"
+  ],
+  [
+    "Marketing",
+    "Brand equity",
+    "Valor de marca construído por percepções, associações e resultados econômicos.",
+    "Crescimento,Expansão",
+    "A marca permite preferência ou confiança adicional?"
+  ],
+  [
+    "Pessoas",
+    "Turnover",
+    "Rotatividade de profissionais no período, segundo critério definido.",
+    "Operação",
+    "Como entradas e saídas afetam o quadro de pessoal?"
+  ],
+  [
+    "Pessoas",
+    "Headcount",
+    "Número de profissionais segundo o critério de contagem adotado.",
+    "Operação,Crescimento",
+    "Quantas pessoas integram a operação?"
+  ],
+  [
+    "Pessoas",
+    "Avaliação 360°",
+    "Avaliação com perspectivas de diferentes relações de trabalho.",
+    "Operação",
+    "Quais padrões de comportamento são observados?"
+  ],
+  [
+    "Pessoas",
+    "Engajamento",
+    "Vínculo e disposição das pessoas para contribuir com o trabalho.",
+    "Operação",
+    "Que evidências há de participação e comprometimento?"
+  ],
+  [
+    "Pessoas",
+    "Absenteísmo",
+    "Ausências ao trabalho em relação ao tempo previsto, conforme critério.",
+    "Operação",
+    "Como as ausências impactam a capacidade?"
+  ],
+  [
+    "Pessoas",
+    "PDI",
+    "Plano de desenvolvimento individual com objetivos e ações de aprendizagem.",
+    "Operação",
+    "Que competências devem ser desenvolvidas?"
+  ],
+  [
+    "Operações",
+    "SLA",
+    "Acordo de nível de serviço com critérios verificáveis.",
+    "Operação,Crescimento",
+    "Qual prazo e padrão de entrega foram assumidos?"
+  ],
+  [
+    "Operações",
+    "SOP / POP",
+    "Procedimento operacional padrão para execução consistente.",
+    "Operação",
+    "Como o processo deve ser realizado e registrado?"
+  ],
+  [
+    "Operações",
+    "Gargalo",
+    "Restrição que limita a capacidade ou velocidade do fluxo.",
+    "Operação,Crescimento",
+    "Qual etapa impede mais entregas?"
+  ],
+  [
+    "Operações",
+    "Lead time",
+    "Tempo transcorrido entre início e conclusão de um processo definido.",
+    "Operação",
+    "Quanto tempo dura a entrega ponta a ponta?"
+  ],
+  [
+    "Operações",
+    "Capacidade operacional",
+    "Volume possível de entregas com recursos e condições definidos.",
+    "Operação,Crescimento",
+    "Quantos atendimentos podem ser sustentados?"
+  ],
+  [
+    "Operações",
+    "OPEX",
+    "Despesas operacionais conforme a classificação adotada.",
+    "Operação,Expansão",
+    "Quais gastos recorrentes sustentam a atividade?"
+  ],
+  [
+    "Operações",
+    "CAPEX",
+    "Investimentos em ativos de capital conforme critério contábil.",
+    "Operação,Expansão",
+    "Qual infraestrutura exige investimento?"
+  ],
+  [
+    "Inovação",
+    "MVP",
+    "Versão mínima de produto capaz de testar hipóteses relevantes.",
+    "Validação",
+    "Qual entrega menor permite aprender com clientes?"
+  ],
+  [
+    "Inovação",
+    "Product-market fit",
+    "Evidência de aderência entre oferta e demanda de mercado.",
+    "Validação,Crescimento",
+    "Há demanda consistente e repetível?"
+  ],
+  [
+    "Inovação",
+    "Roadmap de produto",
+    "Plano de evolução e prioridades de um produto.",
+    "Validação,Crescimento",
+    "Quais recursos serão desenvolvidos primeiro?"
+  ],
+  [
+    "Inovação",
+    "Escalabilidade",
+    "Capacidade de crescer sem expansão proporcional dos recursos necessários.",
+    "Crescimento,Expansão",
+    "A operação suporta aumento de demanda?"
+  ],
+  [
+    "Tecnologia",
+    "BI",
+    "Business intelligence: transformação de dados em informação para decisões.",
+    "Operação,Crescimento",
+    "Que painel revela tendências reais?"
+  ],
+  [
+    "Tecnologia",
+    "ERP",
+    "Sistema integrado de gestão dos processos e dados empresariais.",
+    "Operação,Crescimento",
+    "Onde integrar financeiro, vendas e estoque?"
+  ],
+  [
+    "Tecnologia",
+    "API",
+    "Interface padronizada de comunicação entre sistemas.",
+    "Operação,Crescimento",
+    "Como sistemas trocarão informações com segurança?"
+  ],
+  [
+    "Tecnologia",
+    "Automação",
+    "Execução sistematizada de tarefas segundo regras definidas.",
+    "Operação",
+    "Que tarefa repetitiva pode ser automatizada?"
+  ],
+  [
+    "Tecnologia",
+    "LGPD",
+    "Lei Geral de Proteção de Dados Pessoais brasileira.",
+    "Estruturação,Operação",
+    "Qual finalidade, base legal e acesso cada dado exige?"
+  ],
+  [
+    "Investimentos",
+    "Valuation",
+    "Estimativa do valor econômico de uma empresa segundo método e premissas.",
+    "Expansão",
+    "Qual valor pode fundamentar a negociação?"
+  ],
+  [
+    "Investimentos",
+    "Equity",
+    "Participação patrimonial ou societária em um negócio.",
+    "Expansão",
+    "Qual percentual da sociedade é negociado?"
+  ],
+  [
+    "Investimentos",
+    "Payback",
+    "Prazo de recuperação do capital investido pelos fluxos considerados.",
+    "Estruturação,Expansão",
+    "Em quanto tempo o investimento se recupera?"
+  ],
+  [
+    "Investimentos",
+    "Pitch",
+    "Apresentação concisa de proposta ou negócio a um público decisor.",
+    "Validação,Expansão",
+    "Qual argumento comprova o potencial da solução?"
+  ],
+  [
+    "Investimentos",
+    "Venture capital",
+    "Capital investido em negócios de alto potencial e alto risco.",
+    "Expansão",
+    "Uma rodada dessa natureza faz sentido para a empresa?"
+  ],
+  [
+    "Investimentos",
+    "Smart money",
+    "Capital acompanhado de acesso, experiência ou contribuições estratégicas.",
+    "Expansão",
+    "O que o parceiro traz além do aporte?"
+  ],
+  [
+    "Investimentos",
+    "Due diligence",
+    "Diligência estruturada de verificação de informações e riscos.",
+    "Expansão",
+    "Quais evidências sustentam a negociação?"
+  ],
+  [
+    "Investimentos",
+    "B2B / B2C",
+    "Relações de venda empresa a empresa / empresa a consumidor.",
+    "Estruturação,Crescimento",
+    "Quem contrata e como se decide a compra?"
+  ],
+  [
+    "Riscos",
+    "Compliance",
+    "Práticas para conformidade com obrigações e padrões aplicáveis.",
+    "Operação,Expansão",
+    "Que controles demonstram conformidade?"
+  ],
+  [
+    "Riscos",
+    "Matriz de riscos",
+    "Avaliação estruturada de eventos, probabilidade, impacto e resposta.",
+    "Estruturação,Operação",
+    "Quais riscos exigem tratamento prioritário?"
+  ],
+  [
+    "Riscos",
+    "Contingência",
+    "Plano ou recurso preparado para possíveis eventos adversos.",
+    "Operação",
+    "Como preservar serviços diante de falhas?"
+  ]
+]
