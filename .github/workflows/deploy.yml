@@ -63,7 +63,7 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          paginas = [Path("index.html"), Path("nr-1/index.html"), Path("vocabulario-estrategico/index.html"), Path("aulas/markup/index.html"), Path("glossario/index.html"), Path("acessibilidade/index.html")]
+          paginas = [Path("index.html"), Path("nr-1/index.html"), Path("vocabulario-estrategico/index.html"), Path("vocabulario-estrategico/modulo-03/aula-02/index.html"), Path("glossario/index.html"), Path("acessibilidade/index.html")]
           for pagina in paginas:
               html = pagina.read_text(encoding="utf-8").lower()
               assert "geb academia" in html, f"Identidade ausente: {pagina}"
@@ -82,7 +82,6 @@ jobs:
               html=aula.read_text(encoding="utf-8")
               assert "chapter-quiz-form" in html and "concept-listen" in html
               assert "educacao@grupoeduardabispo.com.br" in html
-          assert sum(len([t for t in termos if t[0] in html]) for html in [])==0
           extra=pathlib.Path("vocabulario-estrategico/modulo-03/aula-02/index.html").read_text(encoding="utf-8")
           assert "MÓDULO 03 · AULA 02" in extra
           indice=pathlib.Path("vocabulario-estrategico/index.html").read_text(encoding="utf-8")
