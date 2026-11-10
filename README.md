@@ -28,3 +28,11 @@ A página pública apresenta as formações e o conteúdo disponível sem expor 
 
 ## Estrutura curricular — Markup
 O termo **markup** integra o Módulo 03, assim como os outros 11 conceitos de precificação. A aula 02 (`vocabulario-estrategico/modulo-03/aula-02/`) oferece aprofundamento aplicado. A calculadora é uma ferramenta desta aula, e não uma formação independente. A antiga URL `/aulas/markup/` é mantida apenas como redirecionamento, fora do catálogo e do sitemap.
+
+
+## NR-1 / estrutura de estudo
+A formação possui 12 módulos e 37 aulas: quatro no Módulo 01 (incluindo Aula 00), três em cada um dos módulos 02–12. As páginas foram geradas a partir das aulas individuais no Drive; o texto público omite URLs internas de documentos do Google Drive, anotações de revisão, gabaritos e instruções exclusivas para professores. Os documentos originais continuam no Drive sob controle do GEB.
+As lições contêm conteúdo e atividades do autor, campos de reflexão e navegação sequencial. O percurso também conserva marcações de estudo no navegador. Não afirmar conclusão certificativa automática a partir desses marcadores.
+
+## Contato final da formação
+No fim da última aula de cada curso, inserir um CTA para o WhatsApp GEB Educação (62) 99205-3534, com mensagem contextualizada, preservando a experiência pedagógica. Não inserir promessa de certificado ou validação sem lastro.

@@ -80,3 +80,40 @@
 .chapter-tool h3{margin:0}.chapter-tool p{margin:0;flex:1;min-width:230px}
 @media(max-width:970px){.curriculum-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.curriculum-intro,.chapter-layout{grid-template-columns:1fr}.chapter-side-card{position:static}.footer-grid{grid-template-columns:1fr 1fr}.footer-education{grid-column:1/-1}}
 @media(max-width:650px){.curriculum-grid,.footer-grid{grid-template-columns:1fr}.footer-education{grid-column:auto}.curriculum-intro{padding-top:35px}.chapter-layout{padding-top:30px;gap:20px}.chapter-aside{order:2}.curriculum-tool{align-items:flex-start;flex-direction:column}.concept-head h3{flex-basis:100%}}
+
+/* Páginas do curso NR-1 e encerramentos de formação. */
+.nr1-introduction{display:grid;grid-template-columns:1.6fr .75fr;gap:45px;padding:52px 0 35px}
+.nr1-introduction>div>p:last-child{max-width:760px;color:var(--muted)}
+.nr1-introduction aside{border:1px solid var(--line);background:white;padding:25px;align-self:start}
+.nr1-introduction aside p{color:var(--muted);font-size:.9rem}
+.nr1-curriculum{padding-bottom:45px}
+.nr1-modules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.nr1-module{background:#fff;border:1px solid var(--line);min-width:0}
+.nr1-module-header{padding:23px 23px 12px}
+.nr1-module h3{margin:8px 0 0;font-size:1.4rem}
+.nr1-module ol{margin:0;padding:0 22px 19px;list-style:none}
+.nr1-module li{border-top:1px solid #e0e7dd}
+.nr1-module li a{display:grid;grid-template-columns:70px 1fr 15px;align-items:start;gap:10px;text-decoration:none;padding:12px 0;font-size:.88rem;line-height:1.45}
+.nr1-module li a:hover{text-decoration:underline}
+.nr1-lesson-label{color:#517c42;font-size:.74rem;font-weight:800;white-space:nowrap}
+.nr1-start{background:#e9f1e4;padding:27px 30px;margin-bottom:65px}
+.nr1-start p{max-width:850px;color:#4e6152}
+.nr1-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(230px,.72fr);gap:43px;padding:43px 0 76px}
+.nr1-article{background:#fff;border:1px solid var(--line);padding:34px;min-width:0;overflow-wrap:anywhere}
+.nr1-article>p{font-size:1rem;color:#3e5143;line-height:1.75;margin:12px 0}
+.nr1-article>h2{font-size:1.45rem;margin:29px 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.nr1-article a{overflow-wrap:anywhere}
+.nr1-lesson-head{border-left:4px solid #649b49;background:#edf5e8;padding:19px;margin-bottom:30px}
+.nr1-lesson-head p:last-child{margin:0}
+.nr1-side .chapter-side-card{top:78px}
+.nr1-activity{background:#edf4e9;padding:23px;margin:30px 0}
+.nr1-activity h2{margin-top:0}
+.nr1-activity label{display:block;font-weight:750;font-size:.87rem;margin:15px 0 8px}
+.nr1-activity textarea{width:100%}
+.nr1-progress-status{color:#286c33;font-weight:700;font-size:.88rem}
+.course-completion-cta{background:#eaf4e3;border:1px solid #bdd4ae;padding:28px;margin:34px 0}
+.course-completion-cta h2{font-size:clamp(1.45rem,2.5vw,2rem);margin:10px 0}
+.course-completion-cta p{max-width:680px;color:#47604a}
+.course-completion-cta .btn{margin-top:9px}
+@media(max-width:920px){.nr1-layout,.nr1-introduction{grid-template-columns:1fr}.nr1-side .chapter-side-card{position:static}}
+@media(max-width:650px){.nr1-modules{grid-template-columns:1fr}.nr1-article{padding:18px}.nr1-module li a{grid-template-columns:57px 1fr 12px;gap:7px}.course-completion-cta{padding:20px}.nr1-start{padding:20px}}

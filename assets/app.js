@@ -104,3 +104,18 @@ fetch("/assets/glossario.json").then(r=>{if(!r.ok)throw Error();return r.json()}
    button.parentElement.querySelector(".chapter-progress-status").textContent="Aula registrada como estudada neste navegador.";
  }));
 })();
+
+/* Acompanhamento da formação NR-1, sem envio de dados para servidor. */
+(function(){
+ "use strict";
+ const key="geb-academia-nr1-aulas";
+ function read(){try{let value=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(value)?value:[]}catch(_){return []}}
+ const total=document.getElementById("nr1-progress");
+ if(total)total.textContent=read().length+" de 37 aulas marcadas como estudadas neste navegador.";
+ document.querySelectorAll(".nr1-finish").forEach(button=>button.addEventListener("click",()=>{
+  const item=button.dataset.nr1Lesson,done=read();if(!done.includes(item))done.push(item);
+  try{localStorage.setItem(key,JSON.stringify(done))}catch(_){ }
+  const feedback=button.parentElement.querySelector(".nr1-progress-status");
+  if(feedback)feedback.textContent="Aula marcada como estudada neste navegador.";
+ }));
+})();

@@ -39,6 +39,8 @@ jobs:
           test -s assets/app.js
           test -s assets/glossario.json
           test -s nr-1/index.html
+          test -s nr-1/modulo-01/aula-00/index.html
+          test -s nr-1/modulo-12/aula-03/index.html
           test -s vocabulario-estrategico/index.html
           test -s aulas/markup/index.html
           test -s ferramentas/markup/index.html
@@ -88,6 +90,19 @@ jobs:
           assert "Leitura complementar · Markup" not in indice
           assert "/aulas/markup/" not in indice
           print("Doze aulas do Vocabulário Executivo verificadas, com markup dentro do módulo 03.")
+          nr1=sorted(pathlib.Path("nr-1").glob("modulo-*/aula-*/index.html"))
+          assert len(nr1)==37, f"Esperadas 37 aulas NR-1, encontradas {len(nr1)}"
+          for aula in nr1:
+              texto=aula.read_text(encoding="utf-8")
+              assert 'data-read-content' in texto and 'chapter-pager' in texto
+              assert "educacao@grupoeduardabispo.com.br" in texto
+              assert "vlibras.gov.br/app/vlibras-plugin.js" in texto
+              assert "docs.google.com" not in texto, f"Link interno do Drive em {aula}"
+              assert "AUTOCORREÇÃO DO PROFESSOR" not in texto
+          assert "course-completion-cta" in nr1[-1].read_text(encoding="utf-8")
+          vocab=pathlib.Path("vocabulario-estrategico/modulo-11/index.html").read_text(encoding="utf-8")
+          assert "course-completion-cta" in vocab
+          print("37 aulas NR-1 e os CTAs de encerramento verificados.")
           print("Auditoria editorial e de pronúncia inicial concluída.")
           PY
 
