@@ -21,3 +21,62 @@
  .access-actions button{min-height:36px}
 }
 @media(prefers-reduced-motion:reduce){.access-actions button{transition:none}}
+
+/* GEB Academia — percurso curricular e leitura das aulas. */
+.footer-grid{grid-template-columns:1.15fr .8fr 1.2fr;gap:35px}
+.footer-grid .footer-links,.footer-grid .footer-education{display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:9px}
+.footer-grid .footer-links a,.footer-grid .footer-education a,.footer-grid .footer-about a{font-size:.85rem;text-decoration:none;color:#e4f4e5}
+.footer-grid .footer-links a:hover,.footer-grid .footer-education a:hover,.footer-grid .footer-about a:hover{text-decoration:underline}
+.footer-heading{font-size:.78rem!important;letter-spacing:.06em;margin-bottom:9px}
+.footer-grid address{font-style:normal;font-size:.83rem;color:#bdd0c0;line-height:1.7;margin-top:7px}
+.curriculum-intro{display:grid;grid-template-columns:1.6fr .8fr;gap:55px;padding:55px 0 38px;align-items:center}
+.curriculum-intro>div>p:last-child{max-width:730px;color:var(--muted)}
+.curriculum-intro aside{border:1px solid var(--line);background:white;padding:23px;display:grid;gap:8px}
+.curriculum-intro aside p{font-size:.9rem;color:var(--muted);margin:0}
+.curriculum-section{padding:0 0 85px}
+.curriculum-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.curriculum-card{background:#fff;border:1px solid var(--line);padding:23px;display:flex;flex-direction:column}
+.curriculum-index{color:#51803d;letter-spacing:.075em;font-size:.7rem;font-weight:900}
+.curriculum-card h3{margin:14px 0;font-size:1.4rem}
+.curriculum-card p{font-size:.9rem;color:var(--muted);flex:1;margin:0 0 20px}
+.curriculum-bottom{border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.curriculum-bottom>span{font-size:.78rem;color:var(--muted)}
+.curriculum-tool{background:#e9f1e4;border:1px solid #d3e4cc;padding:27px;margin-top:27px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.curriculum-tool h3{margin:0}.curriculum-tool p{color:var(--muted);margin:0;flex:1;min-width:180px}
+.chapter-layout{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(250px,.85fr);gap:48px;padding:48px 0 85px}
+.chapter-content{min-width:0}.chapter-content h2{font-size:clamp(1.6rem,2.5vw,2.05rem);margin:30px 0 15px}.chapter-content p{color:#435247}
+.chapter-opening>p{font-size:1.06rem;line-height:1.8}
+.case-example{background:#eaf1e6;border-left:4px solid #739c5c;padding:23px;margin:30px 0}
+.case-example h3{margin:9px 0 11px}.case-example p{margin:0}
+.chapter-terms{margin-top:42px}
+.concept{background:white;border:1px solid var(--line);padding:23px;margin:14px 0;scroll-margin-top:120px}
+.concept-head{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:10px}
+.concept-head h3{font-size:1.35rem;margin:0;flex:1}
+.concept-index{font-size:.68rem;font-weight:850;color:#548742;letter-spacing:.08em}
+.concept-listen{background:#e9f5e3;border:1px solid #91b788;color:#285732;font-size:.8rem;font-weight:750;padding:8px 10px}
+.concept-listen:hover{background:#d5edca}
+.concept-definition{font-size:1rem;line-height:1.75}
+.concept-details{background:#f6f9f4;padding:13px 15px;margin:12px 0}
+.concept-details p{margin:6px 0;font-size:.9rem}
+.concept-question{border-top:1px solid var(--line);padding-top:13px;margin-bottom:0;font-size:.9rem}
+.chapter-side-card{background:white;border:1px solid var(--line);padding:21px;position:sticky;top:72px}
+.chapter-side-card>strong{display:block;font-size:1.13rem;line-height:1.25}.chapter-side-card>span{display:block;color:var(--muted);font-size:.81rem;margin-top:7px}
+.chapter-side-card ol{padding-left:21px;margin:16px 0;border-top:1px solid var(--line);padding-top:10px}
+.chapter-side-card li{padding:3px 0;font-size:.79rem;overflow-wrap:anywhere}
+.chapter-side-card a:hover{text-decoration-thickness:2px}
+.chapter-quiz{background:#fff;border:1px solid #c7dac5;padding:25px;margin:40px 0}
+.chapter-quiz fieldset{border:0;margin:20px 0;padding:0;display:grid;gap:11px}
+.chapter-quiz fieldset label{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #d9e5d7;cursor:pointer}
+.chapter-quiz fieldset label:has(input:checked){background:#eef7e9;border-color:#67965b}
+.chapter-quiz input{accent-color:#4c813c;margin-top:6px}
+.chapter-feedback{font-size:.95rem;margin-top:15px;font-weight:700;white-space:pre-wrap}
+.chapter-transfer{background:#eef3e8;padding:25px;margin:30px 0}
+.chapter-transfer label{display:block;font-size:.87rem;font-weight:850;margin-bottom:6px}
+.chapter-reflection{width:100%;padding:13px;border:1px solid #acb9a7;resize:vertical;border-radius:0;min-height:120px;margin-bottom:12px}
+.chapter-progress-status{font-size:.9rem;font-weight:750;margin:11px 0 0}
+.chapter-pager{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:20px}
+.chapter-pager a{text-decoration:none;font-weight:850;color:#265334}
+.chapter-tool{border:1px solid #b2cfab;background:#f5f9f2;padding:23px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.chapter-tool h3{margin:0}.chapter-tool p{margin:0;flex:1;min-width:230px}
+@media(max-width:970px){.curriculum-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.curriculum-intro,.chapter-layout{grid-template-columns:1fr}.chapter-side-card{position:static}.footer-grid{grid-template-columns:1fr 1fr}.footer-education{grid-column:1/-1}}
+@media(max-width:650px){.curriculum-grid,.footer-grid{grid-template-columns:1fr}.footer-education{grid-column:auto}.curriculum-intro{padding-top:35px}.chapter-layout{padding-top:30px;gap:20px}.chapter-aside{order:2}.curriculum-tool{align-items:flex-start;flex-direction:column}.concept-head h3{flex-basis:100%}}

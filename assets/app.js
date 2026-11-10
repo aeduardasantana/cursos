@@ -76,3 +76,31 @@ const results=$("#g-results");if(results){let rows=[],done=[];try{done=JSON.pars
 function render(){const q=norm($("#g-search").value),a=$("#g-area").value,ph=$("#g-phase").value;const found=rows.filter(t=>(!q||norm(t.join(" ")).includes(q))&&(!a||t[0]===a)&&(!ph||t[3].split(",").includes(ph)));results.replaceChildren();$("#g-count").textContent=found.length+" de "+rows.length+" conceitos";found.forEach(t=>{const card=mk("article","term-card",""),meta=mk("span","term-area",t[0]),h=mk("h3","",t[1]),desc=mk("p","",t[2]),stages=mk("small","","Fases: "+t[3].replaceAll(",",", ")),question=mk("p","term-question","Pergunta executiva: "+t[4]),buttons=mk("div","term-buttons",""),voice=mk("button","",mixedTerms[t[1]]?"Ouvir português + inglês":"Ouvir termo"),studied=mk("button","",done.includes(t[1])?"Estudado":"Marcar estudado");voice.type="button";studied.type="button";voice.setAttribute("aria-label","Ouvir "+t[1]);studied.setAttribute("aria-pressed",done.includes(t[1])?"true":"false");voice.addEventListener("click",()=>speak(t[1],en.has(t[1])?"en-US":"pt-BR"));studied.addEventListener("click",()=>{done=done.includes(t[1])?done.filter(x=>x!==t[1]):[...done,t[1]];try{localStorage.setItem("geb-cursos-terms",JSON.stringify(done))}catch(e){}render();announce("Estudo atualizado.")});buttons.append(voice,studied);card.append(meta,h,desc,stages,question,buttons);results.append(card)})}
 fetch("/assets/glossario.json").then(r=>{if(!r.ok)throw Error();return r.json()}).then(data=>{rows=data;[...new Set(rows.map(x=>x[0]))].forEach(a=>{const o=document.createElement("option");o.textContent=o.value=a;$("#g-area").append(o)});["Estruturação","Validação","Operação","Crescimento","Expansão","Reestruturação"].forEach(a=>{const o=document.createElement("option");o.textContent=o.value=a;$("#g-phase").append(o)});["g-search","g-area","g-phase"].forEach(id=>document.getElementById(id).addEventListener(id==="g-search"?"input":"change",render));render()}).catch(()=>{$("#g-error").textContent="Não foi possível carregar o glossário.";});}
 })();
+
+(function(){
+ "use strict";
+ const status=document.getElementById("curriculum-progress");
+ const key="geb-academia-vocabulario-aulas";
+ function completed(){try{const data=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(data)?data:[]}catch(_){return []}}
+ function updateStatus(){if(status){const count=completed().length;status.textContent=count+" de 11 aulas marcadas como estudadas neste navegador.";}}
+ updateStatus();
+ document.querySelectorAll(".chapter-quiz-form").forEach(form=>form.addEventListener("submit",event=>{
+  event.preventDefault();
+  const chosen=form.querySelector('input[type="radio"]:checked');
+  const target=form.parentElement.querySelector(".chapter-feedback");
+  if(!chosen){target.textContent="Selecione uma alternativa para conferir.";return;}
+  const correct=Number(chosen.value)===Number(form.dataset.correct);
+  target.textContent=(correct?"Resposta adequada. ":"Releia a situação. ")+form.dataset.feedback;
+ }));
+ document.querySelectorAll(".chapter-reflection").forEach(field=>{
+  const key="geb-academia-reflexao-"+field.dataset.reflection;
+  try{field.value=localStorage.getItem(key)||""}catch(_){}
+  field.addEventListener("input",()=>{try{localStorage.setItem(key,field.value)}catch(_){}});
+ });
+ document.querySelectorAll(".chapter-finish").forEach(button=>button.addEventListener("click",()=>{
+   const chapter=button.dataset.chapter,done=completed();
+   if(!done.includes(chapter))done.push(chapter);
+   try{localStorage.setItem(key,JSON.stringify(done))}catch(_){}
+   button.parentElement.querySelector(".chapter-progress-status").textContent="Aula registrada como estudada neste navegador.";
+ }));
+})();

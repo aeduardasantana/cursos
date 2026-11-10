@@ -44,6 +44,8 @@ jobs:
           test -s ferramentas/markup/index.html
           test -s glossario/index.html
           node --check assets/app.js
+          test -s vocabulario-estrategico/modulo-01/index.html
+          test -s vocabulario-estrategico/modulo-11/index.html
           python3 -m json.tool assets/glossario.json >/dev/null
           python3 - <<'PY'
           import json
@@ -71,6 +73,16 @@ jobs:
           assert '"Ponto de equilíbrio (break-even)"' in audio
           assert '["break-even","en-US"]' in audio
           assert '["Ponto de equilíbrio","pt-BR"]' in audio
+          import json, pathlib
+          termos=json.loads(pathlib.Path("assets/glossario.json").read_text(encoding="utf-8"))
+          aulas=sorted(pathlib.Path("vocabulario-estrategico").glob("modulo-*/index.html"))
+          assert len(aulas)==11, "Módulos incompletos"
+          for aula in aulas:
+              html=aula.read_text(encoding="utf-8")
+              assert "chapter-quiz-form" in html and "concept-listen" in html
+              assert "educacao@grupoeduardabispo.com.br" in html
+          assert sum(len([t for t in termos if t[0] in html]) for html in [])==0
+          print("Onze aulas do Vocabulário Executivo verificadas.")
           print("Auditoria editorial e de pronúncia inicial concluída.")
           PY
 
