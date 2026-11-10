@@ -119,3 +119,76 @@ fetch("/assets/glossario.json").then(r=>{if(!r.ok)throw Error();return r.json()}
   if(feedback)feedback.textContent="Aula marcada como estudada neste navegador.";
  }));
 })();
+
+/* Campos de anotação e verificações interativas do percurso NR-1. */
+(function(){
+ "use strict";
+ const note="Suas anotações são salvas somente neste navegador, neste dispositivo. Elas não são enviadas ao GEB Educação e podem ser perdidas se os dados do navegador forem apagados.";
+ document.querySelectorAll("textarea.chapter-reflection").forEach(field=>{
+   if(field.nextElementSibling?.classList.contains("storage-note"))return;
+   const hint=document.createElement("p");
+   hint.className="storage-note"; hint.textContent=note;
+   field.insertAdjacentElement("afterend",hint);
+ });
+ const activity=document.querySelector(".nr1-activity");
+ if(!activity)return;
+ const found=window.location.pathname.match(/\/nr-1\/modulo-(\d{2})\/aula-(\d{2})\//);
+ if(!found)return;
+ const lesson=found[1]+"-"+found[2];
+ const article=activity.closest("article");
+ let mount=document.createElement("section");mount.className="nr1-quiz";
+ let heading=[...article.querySelectorAll("h2")].find(h=>h.textContent.includes("QUIZ DE RETENÇÃO"));
+ if(heading){
+   let next=heading.nextElementSibling;
+   while(next && next.tagName==="P" && /^[a-f]\)\s/.test(next.textContent.trim())){
+     const remove=next; next=next.nextElementSibling; remove.remove();
+   }
+   heading.textContent="Quiz de retenção";
+   heading.insertAdjacentElement("afterend",mount);
+ }else{
+   const h=document.createElement("h2");h.textContent="Quiz de retenção";
+   mount.appendChild(h);
+   activity.insertAdjacentElement("beforebegin",mount);
+ }
+ const description=document.createElement("p");
+ description.textContent="Escolha uma alternativa para cada questão e selecione Conferir respostas para receber a devolutiva.";
+ mount.appendChild(description);
+ fetch("/assets/nr1-quizzes.json").then(r=>{if(!r.ok)throw Error("recurso indisponível");return r.json();}).then(quiz=>{
+   const questions=quiz[lesson]||[];
+   if(!questions.length)throw Error("aula sem questões");
+   const form=document.createElement("form");form.className="nr1-quiz-form";
+   questions.forEach((item,i)=>{
+     const set=document.createElement("fieldset");
+     const legend=document.createElement("legend");legend.textContent=(i+1)+". "+item.q;set.appendChild(legend);
+     item.options.forEach((choice,j)=>{
+       const label=document.createElement("label");label.className="nr1-quiz-choice";
+       const input=document.createElement("input");input.type="radio";input.name="questao-"+lesson+"-"+i;input.value=String(j);
+       label.append(input,document.createTextNode(choice));set.append(label);
+     });
+     const feedback=document.createElement("p");feedback.className="nr1-quiz-feedback";feedback.setAttribute("aria-live","polite");set.append(feedback);
+     form.append(set);
+   });
+   const submit=document.createElement("button");submit.type="submit";submit.className="btn dark-btn";submit.textContent="Conferir respostas";
+   const result=document.createElement("p");result.className="nr1-quiz-result";result.setAttribute("role","status");result.setAttribute("aria-live","polite");
+   form.append(submit,result);mount.append(form);
+   form.addEventListener("submit",e=>{
+     e.preventDefault();
+     const sets=[...form.querySelectorAll("fieldset")];
+     const allAnswered=sets.every(set=>!!set.querySelector('input[type="radio"]:checked'));
+     if(!allAnswered){result.textContent="Responda a todas as questões antes da conferência.";return;}
+     let score=0;
+     sets.forEach((set,i)=>{
+       const selected=Number(set.querySelector('input[type="radio"]:checked').value),q=questions[i];
+       const correct=selected===q.correct;if(correct)score++;
+       const fb=set.querySelector(".nr1-quiz-feedback");
+       fb.textContent=(correct?"Resposta adequada. ":"Reveja este conceito. ")+q.feedback;
+       fb.classList.toggle("is-correct",correct);
+       fb.classList.toggle("is-wrong",!correct);
+     });
+     result.textContent=score+" de "+questions.length+" respostas adequadas. Você pode alterar as alternativas e conferir novamente.";
+   });
+ }).catch(()=>{
+   mount.replaceChildren();
+   const p=document.createElement("p");p.textContent="Não foi possível carregar as questões desta aula.";mount.append(p);
+ });
+})();

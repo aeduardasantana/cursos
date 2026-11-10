@@ -117,3 +117,20 @@
 .course-completion-cta .btn{margin-top:9px}
 @media(max-width:920px){.nr1-layout,.nr1-introduction{grid-template-columns:1fr}.nr1-side .chapter-side-card{position:static}}
 @media(max-width:650px){.nr1-modules{grid-template-columns:1fr}.nr1-article{padding:18px}.nr1-module li a{grid-template-columns:57px 1fr 12px;gap:7px}.course-completion-cta{padding:20px}.nr1-start{padding:20px}}
+
+/* Retenção interativa, campos de reflexão e comunicação de armazenamento. */
+.nr1-quiz{background:#fff;border:1px solid #ccdccc;padding:24px;margin:32px 0}
+.nr1-quiz>h2{margin-top:0}
+.nr1-quiz>p{color:#48634f}
+.nr1-quiz-form fieldset{border:0;border-top:1px solid #d6e5d6;margin:15px 0;padding:18px 0 0}
+.nr1-quiz-form legend{font-weight:800;line-height:1.55;padding-top:14px}
+.nr1-quiz-choice{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1px solid #d7e2d2;margin:8px 0;cursor:pointer;font-size:.94rem;line-height:1.5}
+.nr1-quiz-choice:has(input:checked){background:#edf6e9;border-color:#5e9455}
+.nr1-quiz-choice input{accent-color:#47814b;margin-top:4px;flex-shrink:0}
+.nr1-quiz-feedback{margin:9px 0 0;font-size:.93rem}
+.nr1-quiz-feedback.is-correct{color:#23602b}
+.nr1-quiz-feedback.is-wrong{color:#714422}
+.nr1-quiz-result{font-weight:750;color:#285835;margin:13px 0 0}
+.storage-note{font-size:.82rem!important;line-height:1.55;color:#536454!important;margin:0 0 14px!important}
+.nr1-step{padding-left:13px;border-left:3px solid #d6e5d2}
+@media(max-width:650px){.nr1-quiz{padding:17px}.nr1-quiz-choice{font-size:.9rem}}
