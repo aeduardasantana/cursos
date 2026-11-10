@@ -6,7 +6,7 @@ Domínio previsto: https://cursos.grupoeduardabispo.com.br. Código estático pu
 
 ## Conteúdo
 - Catálogo: NR-1/NR-17 (12 módulos, 37 aulas redigidas no Drive, ainda em revisão de SST, ciência, avaliação, acessibilidade e piloto; não homologado), Vocabulário Executivo (90 termos).
-- Aula 01 de markup, calculadora, glossário filtrável e pronúncia segmentada em português e inglês (dependente das vozes do navegador).
+- Módulo 03 (Precificação): aula 01 de conceitos e aula 02 com aprofundamento de markup, calculadora, glossário filtrável e pronúncia segmentada em português e inglês (dependente das vozes do navegador).
 - Leitor por síntese de voz, aumento de fontes, navegação por teclado, widget VLibras oficial.
 
 ## Governança
@@ -25,3 +25,6 @@ O padrão reutilizável de formação encontra-se em [`.github/docs/padrao-pedag
 ## Política de apresentação
 
 A página pública apresenta as formações e o conteúdo disponível sem expor rótulos de controle interno. Os registros de validação técnica permanecem no repositório e no Drive. Não apresentar ficticiamente matrícula, emissão de certificados ou liberação integral das aulas.
+
+## Estrutura curricular — Markup
+O termo **markup** integra o Módulo 03, assim como os outros 11 conceitos de precificação. A aula 02 (`vocabulario-estrategico/modulo-03/aula-02/`) oferece aprofundamento aplicado. A calculadora é uma ferramenta desta aula, e não uma formação independente. A antiga URL `/aulas/markup/` é mantida apenas como redirecionamento, fora do catálogo e do sitemap.

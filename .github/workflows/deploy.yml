@@ -46,6 +46,7 @@ jobs:
           node --check assets/app.js
           test -s vocabulario-estrategico/modulo-01/index.html
           test -s vocabulario-estrategico/modulo-11/index.html
+          test -s vocabulario-estrategico/modulo-03/aula-02/index.html
           python3 -m json.tool assets/glossario.json >/dev/null
           python3 - <<'PY'
           import json
@@ -82,7 +83,12 @@ jobs:
               assert "chapter-quiz-form" in html and "concept-listen" in html
               assert "educacao@grupoeduardabispo.com.br" in html
           assert sum(len([t for t in termos if t[0] in html]) for html in [])==0
-          print("Onze aulas do Vocabulário Executivo verificadas.")
+          extra=pathlib.Path("vocabulario-estrategico/modulo-03/aula-02/index.html").read_text(encoding="utf-8")
+          assert "MÓDULO 03 · AULA 02" in extra
+          indice=pathlib.Path("vocabulario-estrategico/index.html").read_text(encoding="utf-8")
+          assert "Leitura complementar · Markup" not in indice
+          assert "/aulas/markup/" not in indice
+          print("Doze aulas do Vocabulário Executivo verificadas, com markup dentro do módulo 03.")
           print("Auditoria editorial e de pronúncia inicial concluída.")
           PY
 
