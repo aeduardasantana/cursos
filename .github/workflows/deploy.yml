@@ -53,7 +53,7 @@ jobs:
           from pathlib import Path
           termos=json.loads(Path("assets/glossario.json").read_text(encoding="utf-8"))
           assert len(termos)==90, f"Esperados 90 termos, encontrados {len(termos)}"
-          for nome in ("index.html","nr-1/index.html","vocabulario-estrategico/index.html","aulas/markup/index.html","glossario/index.html"):
+          for nome in ("index.html","nr-1/index.html","vocabulario-estrategico/index.html","vocabulario-estrategico/modulo-03/aula-02/index.html","glossario/index.html"):
               conteudo=Path(nome).read_text(encoding="utf-8")
               assert 'lang="pt-BR"' in conteudo, f"{nome} sem idioma"
               assert "vlibras.gov.br/app/vlibras-plugin.js" in conteudo, f"{nome} sem VLibras"
