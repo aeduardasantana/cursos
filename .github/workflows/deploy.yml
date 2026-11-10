@@ -102,12 +102,12 @@ jobs:
           assert "storage-note" in script and "nr1-quiz-form" in script
           for aula in nr1:
               caminho=str(aula)
-              nums=re.search(r"modulo-(\\d+)/aula-(\\d+)", caminho)
+              nums=re.search(r"modulo-(\d+)/aula-(\d+)", caminho)
               assert nums and nums.group(1)+"-"+nums.group(2) in quizzes, f"Quiz ausente: {aula}"
               texto=aula.read_text(encoding="utf-8")
               principal=texto.split('<main id="conteudo">',1)[1].split('</main>',1)[0]
               for trecho in re.findall(r">([^<>]+)<", principal):
-                  assert not re.search(r"(?<![A-Za-z])'[^'\\n]{2,240}'(?![A-Za-z])",trecho), f"Citação com aspas simples: {aula}"
+                  assert not re.search(r"(?<![A-Za-z])'[^'\n]{2,240}'(?![A-Za-z])",trecho), f"Citação com aspas simples: {aula}"
           for aula in nr1:
               texto=aula.read_text(encoding="utf-8")
               assert 'data-read-content' in texto and 'chapter-pager' in texto
