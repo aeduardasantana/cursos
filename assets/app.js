@@ -3,9 +3,72 @@ const $=s=>document.querySelector(s),announce=t=>{const n=$("#speech-status");if
 let scale=1;try{scale=Number(localStorage.getItem("geb-cursos-font")||"1")||1}catch(e){}
 function font(next){scale=Math.min(1.4,Math.max(.9,Math.round(next*10)/10));document.documentElement.style.setProperty("--size",String(Math.round(16*scale))+"px");try{localStorage.setItem("geb-cursos-font",scale)}catch(e){}}
 font(scale);document.querySelectorAll("[data-font]").forEach(b=>b.addEventListener("click",()=>font(b.dataset.font==="more"?scale+.1:b.dataset.font==="less"?scale-.1:1)));
-const synth="speechSynthesis" in window?window.speechSynthesis:null;
-function speak(text,language){if(!synth||typeof SpeechSynthesisUtterance==="undefined"){announce("O áudio não está disponível neste navegador.");return}if(!text.trim()){announce("Não há texto para leitura.");return}synth.cancel();const utterance=new SpeechSynthesisUtterance(text);utterance.lang=language||"pt-BR";utterance.rate=Number($("#audio-rate")?.value||1);const choices=synth.getVoices().filter(v=>v.lang.toLowerCase().startsWith(utterance.lang.slice(0,2).toLowerCase()));utterance.voice=choices.find(v=>v.lang.toLowerCase()===utterance.lang.toLowerCase())||choices[0]||null;utterance.onstart=()=>announce("Leitura iniciada.");utterance.onend=()=>announce("Leitura concluída.");utterance.onerror=()=>announce("Falha na reprodução do áudio.");synth.speak(utterance)}
-document.querySelectorAll("[data-reader]").forEach(b=>b.addEventListener("click",()=>{if(!synth){announce("O áudio não está disponível neste navegador.");return}if(b.dataset.reader==="stop"){synth.cancel();announce("Leitura interrompida.");return}if(b.dataset.reader==="pause"){if(synth.paused){synth.resume();announce("Leitura retomada.")}else if(synth.speaking){synth.pause();announce("Leitura pausada.")}else{announce("Inicie a leitura.");}return}const main=$("[data-read-content]")||$("#conteudo");speak(main?.innerText||main?.textContent||"","pt-BR")}));
+
+const synth="speechSynthesis" in window ? window.speechSynthesis : null;
+let playbackId=0;
+const mixedTerms={
+  "Ponto de equilíbrio (break-even)":[["Ponto de equilíbrio","pt-BR"],["break-even","en-US"]],
+  "SWOT / FOFA":[["SWOT","en-US"],["FOFA","pt-BR"]],
+  "SOP / POP":[["SOP","en-US"],["POP","pt-BR"]],
+  "Roadmap estratégico":[["Roadmap","en-US"],["estratégico","pt-BR"]],
+  "B2B / B2C":[["B2B","en-US"],["B2C","en-US"]],
+  "CPV / CSP":[["CPV","pt-BR"],["CSP","pt-BR"]]
+};
+const foreignWords=["product-market fit","venture capital","due diligence","smart money","brand equity","core business","lead time","burn rate","break-even","cross-sell","roadmap","markup","valuation","pipeline","stakeholder","payback","forecast","turnover","headcount","runway","equity","pitch","churn","upsell","compliance"];
+const foreignMatcher=new RegExp("("+foreignWords.join("|").replaceAll("-","\\-")+")","gi");
+function languageSegments(text,lang){
+  const s=String(text||"").trim();
+  if(!s)return [];
+  if(mixedTerms[s])return mixedTerms[s];
+  const result=[];let offset=0;
+  foreignMatcher.lastIndex=0;
+  for(const match of s.matchAll(foreignMatcher)){
+    if(match.index>offset)result.push([s.slice(offset,match.index),lang||"pt-BR"]);
+    result.push([match[0],"en-US"]);
+    offset=match.index+match[0].length;
+  }
+  if(offset<s.length)result.push([s.slice(offset),lang||"pt-BR"]);
+  return result.length?result:[[s,lang||"pt-BR"]];
+}
+function chunks(text){
+ const words=String(text||"").trim().split(/\s+/).filter(Boolean),result=[];let piece="";
+ words.forEach(word=>{if(piece&&piece.length+word.length+1>190){result.push(piece);piece="";}piece+=(piece?" ":"")+word;});
+ if(piece)result.push(piece);
+ return result;
+}
+function speak(text,language){
+ if(!synth||typeof SpeechSynthesisUtterance==="undefined"){announce("A leitura por áudio não está disponível neste navegador.");return;}
+ const items=languageSegments(text,language).flatMap(([piece,lang])=>chunks(piece).map(t=>[t,lang]));
+ if(!items.length){announce("Não há texto para leitura.");return;}
+ const id=++playbackId;synth.cancel();let i=0,alerted=false;
+ function next(){
+  if(id!==playbackId)return;
+  if(i===items.length){announce("Leitura concluída.");return;}
+  const [content,locale]=items[i++],utterance=new SpeechSynthesisUtterance(content);
+  utterance.lang=locale;utterance.rate=Number($("#audio-rate")?.value||1);
+  const voices=synth.getVoices().filter(v=>v.lang.toLowerCase().startsWith(locale.slice(0,2).toLowerCase()));
+  utterance.voice=voices.find(v=>v.lang.toLowerCase()===locale.toLowerCase())||voices[0]||null;
+  if(!voices.length&&locale.startsWith("en")&&!alerted){alerted=true;announce("Sem voz inglesa instalada: a pronúncia poderá variar.");}
+  utterance.onend=next;
+  utterance.onerror=()=>{if(id===playbackId)announce("Falha na leitura deste trecho.");};
+  synth.speak(utterance);
+ }
+ announce("Leitura iniciada.");next();
+}
+function stopSpeech(){playbackId++;if(synth)synth.cancel();announce("Leitura interrompida.");}
+document.querySelectorAll("[data-reader]").forEach(b=>b.addEventListener("click",()=>{
+ const command=b.dataset.reader;
+ if(command==="stop"){stopSpeech();return;}
+ if(!synth){announce("O leitor não está disponível neste navegador.");return;}
+ if(command==="pause"){
+  if(synth.paused){synth.resume();announce("Leitura retomada.");}
+  else if(synth.speaking){synth.pause();announce("Leitura pausada.");}
+  else announce("Inicie a leitura antes de pausar.");
+  return;
+ }
+ const main=$("[data-read-content]")||$("#conteudo");
+ speak(main?.innerText||main?.textContent||"","pt-BR");
+}));
 document.querySelectorAll("[data-say]").forEach(b=>b.addEventListener("click",()=>speak(b.dataset.say,b.dataset.lang||"en-US")));
 const quiz=$("#lesson-quiz");if(quiz)quiz.addEventListener("submit",e=>{e.preventDefault();const chosen=quiz.querySelector("input:checked"),feedback=$("#lesson-feedback");if(!chosen){feedback.textContent="Selecione uma alternativa.";return}feedback.textContent=chosen.value==="b"?"Correto. Markup calculado a partir do custo e margem sobre o preço possuem bases distintas.":"Revise: um acréscimo aplicado ao custo não equivale à mesma porcentagem sobre o preço de venda.";if(chosen.value==="b")try{localStorage.setItem("geb-cursos-aula-markup","estudada")}catch(e){}});
 const form=$("#markup-form");if(form){const brl=n=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(n);function calculate(){const ids=["cost","variable","tax","profit"];const v=ids.map(id=>document.getElementById(id).value.trim()===""?NaN:Number(document.getElementById(id).value));const out=$("#markup-result"),sum=v[1]+v[2]+v[3];if(v.some(x=>!Number.isFinite(x)||x<0)||sum>=100){out.textContent="Revise os valores: devem ser não negativos e os percentuais devem somar menos de 100%.";return}const divisor=1-sum/100,price=v[0]/divisor;out.replaceChildren();const p=document.createElement("p");p.textContent="PREÇO ESTIMADO DE VENDA";const s=document.createElement("strong");s.textContent=brl(price);const dl=document.createElement("dl");[["Divisor",divisor.toFixed(4)],["Multiplicador",(1/divisor).toFixed(4)+"×"],["Lucro-alvo nominal",brl(price*v[3]/100)],["Lucro-alvo",v[3]+"% do preço"]].forEach(([k,val])=>{const div=document.createElement("div"),dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=k;dd.textContent=val;div.append(dt,dd);dl.append(div)});out.append(p,s,dl)}form.querySelectorAll("input").forEach(i=>i.addEventListener("input",calculate));calculate()}
