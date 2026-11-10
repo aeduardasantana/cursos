@@ -99,6 +99,10 @@ jobs:
               assert "vlibras.gov.br/app/vlibras-plugin.js" in texto
               assert "docs.google.com" not in texto, f"Link interno do Drive em {aula}"
               assert "AUTOCORREÇÃO DO PROFESSOR" not in texto
+          import re
+          for aula in nr1:
+              html=aula.read_text(encoding="utf-8")
+              assert not re.search(r'<p>(?:VERSÃO DE REDAÇÃO TÉCNICO-PEDAGÓGICA|Material de ensino 1\\.0|Versão de conteúdo técnico-pedagógico)', html, re.I), str(aula)
           assert "course-completion-cta" in nr1[-1].read_text(encoding="utf-8")
           vocab=pathlib.Path("vocabulario-estrategico/modulo-11/index.html").read_text(encoding="utf-8")
           assert "course-completion-cta" in vocab
