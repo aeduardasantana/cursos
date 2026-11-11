@@ -38,7 +38,6 @@ jobs:
           test -s assets/styles.css
           test -s assets/app.js
           test -s assets/glossario.json
-          test -s assets/nr1-quizzes.json
           test -s nr-1/index.html
           test -s nr-1/modulo-01/aula-00/index.html
           test -s nr-1/modulo-12/aula-03/index.html
@@ -93,21 +92,19 @@ jobs:
           print("Doze aulas do Vocabulário Executivo verificadas, com markup dentro do módulo 03.")
           nr1=sorted(pathlib.Path("nr-1").glob("modulo-*/aula-*/index.html"))
           assert len(nr1)==37, f"Esperadas 37 aulas NR-1, encontradas {len(nr1)}"
-          import re, json
-          quizzes=json.loads(pathlib.Path("assets/nr1-quizzes.json").read_text(encoding="utf-8"))
-          assert len(quizzes)==37, "São necessárias questões nas 37 aulas"
-          assert sum(len(v) for v in quizzes.values())>=42, "Banco de retenção incompleto"
-          assert len(quizzes["01-00"])==6, "Aula de abertura deve ter seis questões"
+          import re
           script=pathlib.Path("assets/app.js").read_text(encoding="utf-8")
-          assert "storage-note" in script and "nr1-quiz-form" in script
+          assert "source-checklist-item" in script and "source-answer" in script
+          assert "nr1-quizzes.json" not in script
+          assert "source-storage-note" in script
           for aula in nr1:
-              caminho=str(aula)
-              nums=re.search(r"modulo-(\d+)/aula-(\d+)", caminho)
-              assert nums and nums.group(1)+"-"+nums.group(2) in quizzes, f"Quiz ausente: {aula}"
               texto=aula.read_text(encoding="utf-8")
               principal=texto.split('<main id="conteudo">',1)[1].split('</main>',1)[0]
               for trecho in re.findall(r">([^<>]+)<", principal):
                   assert not re.search(r"(?<![A-Za-z])'[^'\n]{2,240}'(?![A-Za-z])",trecho), f"Citação com aspas simples: {aula}"
+          aula_08=pathlib.Path("nr-1/modulo-08/aula-02/index.html").read_text(encoding="utf-8")
+          for frase in ("1) Que informação pode ser entregue à gestão sem reidentificar trabalhador?", "2) O que o profissional competente precisará verificar antes de emitir avaliação formal?", "3) Como provar que uma medida mudou de PROPOSTA para IMPLEMENTADA?", "[ ] Documentei fontes e limite"):
+              assert frase in aula_08, "Atividade autoral ausente: "+frase
           for aula in nr1:
               texto=aula.read_text(encoding="utf-8")
               assert 'data-read-content' in texto and 'chapter-pager' in texto

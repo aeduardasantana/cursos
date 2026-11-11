@@ -134,3 +134,17 @@
 .storage-note{font-size:.82rem!important;line-height:1.55;color:#536454!important;margin:0 0 14px!important}
 .nr1-step{padding-left:13px;border-left:3px solid #d6e5d2}
 @media(max-width:650px){.nr1-quiz{padding:17px}.nr1-quiz-choice{font-size:.9rem}}
+
+/* Atividades originais, abertas e checklists interativos do conteúdo NR-1. */
+.source-answer{border-left:3px solid #85ab76;background:#f4f8f1;padding:14px 16px;margin:5px 0 19px}
+.source-answer-label{display:block;font-size:.9rem;font-weight:800;margin-bottom:8px}
+.source-answer-field{min-height:90px;resize:vertical;width:100%;padding:11px 12px;color:#17291b;background:#fff;border:1px solid #a4bea0;font:inherit}
+.source-answer-status{font-size:.8rem;color:#336b38;margin:7px 0}
+.source-storage-note{font-size:.79rem!important;color:#596b5e!important;line-height:1.5!important;margin:9px 0 0!important}
+.source-checklist{border:1px solid #c8d8c4;background:#f0f6eb;padding:20px;margin:20px 0 30px}
+.source-checklist-title{font-weight:850;font-size:1.1rem;padding:0 7px;color:#243f2b}
+.source-checklist-item{display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid #d4e4d0;padding:11px 0;cursor:pointer;line-height:1.5}
+.source-checklist-item input{accent-color:#3c803e;min-width:17px;min-height:17px;margin-top:5px}
+.source-checklist-item:last-of-type{border-bottom:0}
+.source-checklist-count{font-size:.85rem;color:#365b3f;margin:14px 0 0;font-weight:700}
+@media(max-width:650px){.source-checklist{padding:14px}.source-answer{padding:12px}}

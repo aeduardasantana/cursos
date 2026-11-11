@@ -120,75 +120,132 @@ fetch("/assets/glossario.json").then(r=>{if(!r.ok)throw Error();return r.json()}
  }));
 })();
 
-/* Campos de anotação e verificações interativas do percurso NR-1. */
+
+/* Atividades e checklists da NR-1 — enunciados preservados das aulas autorais. */
 (function(){
- "use strict";
- const note="Suas anotações são salvas somente neste navegador, neste dispositivo. Elas não são enviadas ao GEB Educação e podem ser perdidas se os dados do navegador forem apagados.";
- document.querySelectorAll("textarea.chapter-reflection").forEach(field=>{
-   if(field.nextElementSibling?.classList.contains("storage-note"))return;
-   const hint=document.createElement("p");
-   hint.className="storage-note"; hint.textContent=note;
-   field.insertAdjacentElement("afterend",hint);
- });
- const activity=document.querySelector(".nr1-activity");
- if(!activity)return;
- const found=window.location.pathname.match(/\/nr-1\/modulo-(\d{2})\/aula-(\d{2})\//);
- if(!found)return;
- const lesson=found[1]+"-"+found[2];
- const article=activity.closest("article");
- let mount=document.createElement("section");mount.className="nr1-quiz";
- let heading=[...article.querySelectorAll("h2")].find(h=>h.textContent.includes("QUIZ DE RETENÇÃO"));
- if(heading){
-   let next=heading.nextElementSibling;
-   while(next && next.tagName==="P" && /^[a-f]\)\s/.test(next.textContent.trim())){
-     const remove=next; next=next.nextElementSibling; remove.remove();
-   }
-   heading.textContent="Quiz de retenção";
-   heading.insertAdjacentElement("afterend",mount);
- }else{
-   const h=document.createElement("h2");h.textContent="Quiz de retenção";
-   mount.appendChild(h);
-   activity.insertAdjacentElement("beforebegin",mount);
- }
- const description=document.createElement("p");
- description.textContent="Escolha uma alternativa para cada questão e selecione Conferir respostas para receber a devolutiva.";
- mount.appendChild(description);
- fetch("/assets/nr1-quizzes.json").then(r=>{if(!r.ok)throw Error("recurso indisponível");return r.json();}).then(quiz=>{
-   const questions=quiz[lesson]||[];
-   if(!questions.length)throw Error("aula sem questões");
-   const form=document.createElement("form");form.className="nr1-quiz-form";
-   questions.forEach((item,i)=>{
-     const set=document.createElement("fieldset");
-     const legend=document.createElement("legend");legend.textContent=(i+1)+". "+item.q;set.appendChild(legend);
-     item.options.forEach((choice,j)=>{
-       const label=document.createElement("label");label.className="nr1-quiz-choice";
-       const input=document.createElement("input");input.type="radio";input.name="questao-"+lesson+"-"+i;input.value=String(j);
-       label.append(input,document.createTextNode(choice));set.append(label);
-     });
-     const feedback=document.createElement("p");feedback.className="nr1-quiz-feedback";feedback.setAttribute("aria-live","polite");set.append(feedback);
-     form.append(set);
-   });
-   const submit=document.createElement("button");submit.type="submit";submit.className="btn dark-btn";submit.textContent="Conferir respostas";
-   const result=document.createElement("p");result.className="nr1-quiz-result";result.setAttribute("role","status");result.setAttribute("aria-live","polite");
-   form.append(submit,result);mount.append(form);
-   form.addEventListener("submit",e=>{
-     e.preventDefault();
-     const sets=[...form.querySelectorAll("fieldset")];
-     const allAnswered=sets.every(set=>!!set.querySelector('input[type="radio"]:checked'));
-     if(!allAnswered){result.textContent="Responda a todas as questões antes da conferência.";return;}
-     let score=0;
-     sets.forEach((set,i)=>{
-       const selected=Number(set.querySelector('input[type="radio"]:checked').value),q=questions[i];
-       const correct=selected===q.correct;if(correct)score++;
-       const fb=set.querySelector(".nr1-quiz-feedback");
-       fb.textContent=(correct?"Resposta adequada. ":"Reveja este conceito. ")+q.feedback;
-       fb.classList.toggle("is-correct",correct);
-       fb.classList.toggle("is-wrong",!correct);
-     });
-     result.textContent=score+" de "+questions.length+" respostas adequadas. Você pode alterar as alternativas e conferir novamente.";
-   });
- }).catch(()=>{
-   mount.replaceChildren();
-   const p=document.createElement("p");p.textContent="Não foi possível carregar as questões desta aula.";mount.append(p);
- });
+  "use strict";
+  const article=document.querySelector(".nr1-article");
+  if(!article)return;
+  const match=window.location.pathname.match(/\/nr-1\/modulo-(\d{2})\/aula-(\d{2})\//);
+  if(!match)return;
+  const lesson=match[1]+"-"+match[2];
+  const prefix="geb-academia-nr1-original-"+lesson+"-";
+  const notice="Suas respostas e marcações ficam salvas somente neste navegador, neste dispositivo. Elas não são enviadas ao GEB Educação e podem ser perdidas se você limpar os dados do navegador.";
+  const normalize=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().trim();
+  const get=(key,fallback="")=>{try{return localStorage.getItem(key)??fallback}catch(_){return fallback}};
+  const save=(key,value)=>{try{localStorage.setItem(key,value);return true}catch(_){return false}};
+  const el=(tag,cls,text)=>{
+    const out=document.createElement(tag);
+    if(cls)out.className=cls;
+    if(text!==undefined)out.textContent=text;
+    return out;
+  };
+  const storageId="source-local-note-"+lesson;
+  let noteNumber=0,answerNumber=0,checkNumber=0;
+
+  // A reflexão final, que já possuía armazenamento local, mantém informação visível.
+  document.querySelectorAll("textarea.chapter-reflection").forEach(field=>{
+    if(field.nextElementSibling?.classList.contains("storage-note"))return;
+    const hint=el("p","storage-note",notice);
+    field.insertAdjacentElement("afterend",hint);
+  });
+  function description(){
+    const p=el("p","source-storage-note",notice);
+    if(!document.getElementById(storageId)){
+      p.id=storageId;
+      return p;
+    }
+    return p;
+  }
+  function makeAnswer(original){
+    answerNumber++;
+    const holder=el("div","source-answer");
+    const id="nr1-original-answer-"+lesson+"-"+answerNumber;
+    const label=el("label","source-answer-label","Sua resposta");
+    label.htmlFor=id;
+    const field=el("textarea","source-answer-field");
+    field.id=id;field.rows=4;field.setAttribute("aria-describedby",storageId);
+    const key=prefix+"answer-"+answerNumber;
+    field.value=get(key);
+    const msg=el("p","source-answer-status","");
+    msg.setAttribute("role","status");msg.setAttribute("aria-live","polite");
+    field.addEventListener("change",()=>{msg.textContent=save(key,field.value)?"Resposta salva neste navegador.":"Não foi possível salvar neste navegador.";});
+    field.addEventListener("input",()=>{save(key,field.value);});
+    holder.append(label,field,msg,description());
+    original.insertAdjacentElement("afterend",holder);
+  }
+  function isExerciseHeading(s){
+    const text=normalize(s);
+    return /^(?:\d+\.\s*)?(?:QUIZ DE RETENCAO|FIXACAO(?: IMEDIATA)?|QUESTOES DE FIXACAO|TRES PERGUNTAS DE FIXACAO|PERGUNTAS DE VERIFICACAO FORMATIVA|ATIVIDADE DE TREINO|EXERCICIO Q\d+|EXERCICIO DO ALUNO|ATIVIDADE APLICADA|ATIVIDADE A SER ENTREGUE|ATIVIDADE AVALIAVEL|ATIVIDADE DO ALUNO|PRODUCAO AVALIAVEL DO ALUNO|PRATICA EM SALA)/.test(text);
+  }
+  function isBoundary(s){
+    return /^(?:CHECKLIST|FONTES|LEITURA|REFERENCIAS|APLICACAO:|ERROS A CORRIGIR:|ERRO CRITICO:|FEEDBACK|PRODUCAO|ATIVIDADE:|METODO:)/.test(normalize(s));
+  }
+  // Os textos e perguntas não são substituídos: cada campo é associado à
+  // pergunta aberta original imediatamente anterior.
+  const originalChildren=[...article.children];
+  originalChildren.forEach(node=>{
+    if(node.tagName==="H2"&&isExerciseHeading(node.textContent)){
+      const prompts=[];
+      let next=node.nextElementSibling;
+      while(next && next.tagName==="P" && !isBoundary(next.textContent) && prompts.length<12){
+        prompts.push(next);
+        next=next.nextElementSibling;
+      }
+      prompts.forEach(p=>makeAnswer(p));
+    }else if(node.tagName==="P"&&/^(?:FIXACAO|QUESTOES DE FIXACAO)(?:\s*:.*)?$/.test(normalize(node.textContent))){
+      const current=normalize(node.textContent);
+      if(current==="FIXACAO"||current==="QUESTOES DE FIXACAO"){
+        const prompts=[];
+        let next=node.nextElementSibling;
+        while(next && next.tagName==="P" && !isBoundary(next.textContent) && prompts.length<12){
+          prompts.push(next);
+          next=next.nextElementSibling;
+        }
+        prompts.forEach(p=>makeAnswer(p));
+      }else{
+        makeAnswer(node);
+      }
+    }
+  });
+  // Checklist: converter os mesmos itens da apostila em controles marcáveis.
+  const checklistSources=[...article.children].filter(n=>
+    (n.tagName==="H2"&&normalize(n.textContent).startsWith("CHECKLIST")) ||
+    (n.tagName==="P"&&normalize(n.textContent).startsWith("CHECKLIST:"))
+  );
+  checklistSources.forEach(origin=>{
+    const paragraph=origin.tagName==="H2"?origin.nextElementSibling:origin;
+    if(!paragraph || paragraph.tagName!=="P" || !/\[\s*\]/.test(paragraph.textContent))return;
+    const parts=paragraph.textContent.split(/\[\s*\]/).slice(1)
+      .map(s=>s.trim().replace(/^;\s*/,"").replace(/;\s*$/,"").trim()).filter(Boolean);
+    if(!parts.length)return;
+    checkNumber++;
+    const key=prefix+"checklist-"+checkNumber;
+    let recorded=[];try{recorded=JSON.parse(get(key,"[]"))}catch(_){}
+    if(!Array.isArray(recorded))recorded=[];
+    const fieldset=el("fieldset","source-checklist");
+    const legend=el("legend","source-checklist-title",origin.tagName==="H2"?origin.textContent:"Checklist");
+    fieldset.append(legend);
+    const checks=[];
+    const count=el("p","source-checklist-count");
+    count.setAttribute("role","status");count.setAttribute("aria-live","polite");
+    function updateCount(){count.textContent=checks.filter(x=>x.checked).length+" de "+checks.length+" itens marcados neste navegador.";}
+    parts.forEach((text,i)=>{
+      const label=el("label","source-checklist-item");
+      const input=el("input");
+      input.type="checkbox";input.checked=recorded.includes(i);
+      input.addEventListener("change",()=>{
+        const indices=checks.flatMap((x,j)=>x.checked?[j]:[]);
+        save(key,JSON.stringify(indices));
+        updateCount();
+      });
+      checks.push(input);
+      label.append(input,document.createTextNode(text));
+      fieldset.append(label);
+    });
+    fieldset.append(count,description());
+    updateCount();
+    if(origin!==paragraph)origin.remove();
+    paragraph.replaceWith(fieldset);
+  });
 })();
